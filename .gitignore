@@ -1,5 +1,6 @@
-.terraform
+.terraform*
 terraform.tfstate*
-serviceaccount.json
+/*.json
 terraform.tfvars
 *.tf_
+kubeconfig*

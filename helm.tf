@@ -11,7 +11,7 @@ resource "kubernetes_secret" "gcs_secret" {
     namespace = var.namespaces["gitlab-runner"]
   }
   data = {
-    "gcs-application-credentials-file" = file("${path.module}/serviceaccount.json")
+    "gcs-application-credentials-file" = module.service_account.key
   }
 }
 
@@ -19,7 +19,7 @@ data "template_file" "gitlab_runner" {
   template = file("${path.module}/templates/gitlab-runner.tpl")
   vars = {
     gcs_bucket_name          = module.gcs_bucket.name
-    gcs_service_account      = module.gke_gitlab_runner_cache_sa.gcp_service_account_email
+    gcs_service_account      = module.service_account.email
     gcs_secret_name          = kubernetes_secret.gcs_secret.metadata[0].name
     gitlab_runner_concurrent = var.gitlab_runner_concurrent
   }

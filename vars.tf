@@ -17,6 +17,11 @@ variable "gitlab_runner_concurrent" {
   default = 2
 }
 
+variable "gcp_cred_json" {
+  type    = string
+  default = "serviceaccount.json"
+}
+
 variable "gcp_project" {
   type        = string
   description = "The GCP project to deploy the runner into."
@@ -37,27 +42,8 @@ variable "name_prefix" {
   description = "The prefix to apply to all GCP resource names (e.g. <prefix>-runner, <prefix>-worker-1)."
 }
 
-variable "bucket_versioning" {
-  description = "Boolean used to enable versioning on the cache bucket, false by default."
-  type        = bool
+variable "gcs_force_destroy" {
   default     = false
-}
-
-variable "bucket_storage_class" {
-  description = "The cache storage class"
-  default     = "STANDARD"
-}
-
-variable "bucket_expiration_days" {
-  description = "Number of days before cache objects expires."
-  type        = number
-  default     = 30
-}
-
-variable "bucket_labels" {
-  description = "labels to apply to the storage bucket"
-  type        = map(string)
-  default     = {}
 }
 
 variable "runner_registration_token" {
